@@ -8,7 +8,6 @@ import {
   nextQuestion,
   winnerOn,
 } from "../../store/actions/quiz"
-import './Quiz.scss'
 import {
   hideTextContent, oneHelpOff,
 } from "../../store/actions/assist"
@@ -22,6 +21,7 @@ import {
   hallHelpDeleteClick,
 } from "../../store/actions/hallHelp"
 import {timerStop, updateTimer} from "../../store/actions/timer"
+import quizStyles from './quizStyles'
 
 const Quiz = () => {
   const dispatch = useDispatch()
@@ -34,9 +34,11 @@ const Quiz = () => {
   const textContent = useSelector(state => state.assistReducer.textContent)
   const [repeatedClick, setRepeatedClick] = useState(true)
 
+  const classes = quizStyles()
+
   const answerClickHandler = (answerID, event) => {
     let target = event.target
-    const milliseconds = 2000
+    const milliseconds = 4500
 
     if (target.tagName !== ('DIV')) {
       target = target.closest('div')
@@ -45,7 +47,7 @@ const Quiz = () => {
     if (repeatedClick) {
       setRepeatedClick(false)
       if (rightAnswerId === answerID) {
-        target.classList.add('answer-success')
+        target.classList.add(classes.success)
 
         const timeout = window.setTimeout(() => {
           if (textContent) {
@@ -59,9 +61,9 @@ const Quiz = () => {
             dispatch(nextQuestion())
 
             if (fiftyState) {
-              let $itemAnswer = document.querySelectorAll('.assist-hide')
+              let $itemAnswer = document.querySelectorAll('.fifty-item-hidden')
               $itemAnswer.forEach(item => {
-                item.classList.remove('assist-hide')
+                item.classList.remove('fifty-item-hidden')
               })
               dispatch(fiftyDeleteClick())
             }
@@ -76,19 +78,29 @@ const Quiz = () => {
             console.log('Конец игры!')
           }
 
-          target.classList.remove('answer-success')
+          target.classList.remove(classes.success)
           window.clearTimeout(timeout)
           setRepeatedClick(true)
         }, milliseconds)
       } else {
-        target.classList.add('answer-error')
+        target.classList.add(classes.error)
         dispatch(timerStop())
         const timeout = window.setTimeout(() => {
-          target.classList.remove('answer-error')
+          target.classList.remove(classes.error)
           dispatch(losingOn())
           window.clearTimeout(timeout)
           setRepeatedClick(true)
         }, milliseconds)
+
+        if (fiftyState) {
+          dispatch(fiftyDeleteClick())
+        }
+        if (hallHelp) {
+          dispatch(hallHelpDeleteClick())
+        }
+        if (callFriend) {
+          dispatch(callFriendDeleteClick())
+        }
       }
     }
   }

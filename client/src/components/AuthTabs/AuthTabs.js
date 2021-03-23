@@ -13,7 +13,7 @@ const AuthTabs = () => {
   return (
     <>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} variant="fullWidth">
+        <Tabs value={value} onChange={handleChange} variant="fullWidth" indicatorColor="secondary">
           <Tab label="Вход" />
           <Tab label="Регистрация" />
         </Tabs>

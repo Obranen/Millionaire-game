@@ -6,7 +6,6 @@ import {
   quizStateEditOff,
 } from "../../../store/actions/quiz"
 import {createQuiz, updateQuiz} from "../../../store/actionsAsync/quiz";
-import {useValidation} from "../../../hooks/validation.hook";
 
 const QuizForm = () => {
   const dispatch = useDispatch()
@@ -22,7 +21,6 @@ const QuizForm = () => {
   const answerBRef = useRef()
   const answerCRef = useRef()
   const answerDRef = useRef()
-  const {errorInput, validationInput} = useValidation()
 
   const clearInput = () => {
     document.querySelectorAll('#create-quiz input').forEach(input => {

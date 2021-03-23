@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Box, Typography} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {fiftyClick, fiftyDisableOtherClick} from "../../../../store/actions/fifty"
+import fiftyStyles from './fiftyStyles'
 
 const Fifty = () => {
   const dispatch = useDispatch()
@@ -13,10 +14,12 @@ const Fifty = () => {
   const [wrongAnswers, setWrongAnswers] = useState(null)
   const [fifty, setFifty] = useState(false)
 
+  const classes = fiftyStyles()
+
   useEffect(() => {
     if (fifty) {
-      document.querySelector(`.MuiPaper-root[data-answer-id="${wrongAnswers[0]}"]`).classList.add('assist-hide')
-      document.querySelector(`.MuiPaper-root[data-answer-id="${wrongAnswers[1]}"]`).classList.add('assist-hide')
+      document.querySelector(`.MuiPaper-root[data-answer-id="${wrongAnswers[0]}"]`).classList.add('fifty-item-hidden')
+      document.querySelector(`.MuiPaper-root[data-answer-id="${wrongAnswers[1]}"]`).classList.add('fifty-item-hidden')
     }
   }, [fifty, wrongAnswers])
 
@@ -48,7 +51,7 @@ const Fifty = () => {
           target = target.closest('div')
         }
 
-        target.classList.add('assist-disable')
+        target.classList.add(classes.used)
 
         setFifty(true)
         dispatch(fiftyClick())
@@ -59,7 +62,7 @@ const Fifty = () => {
   }
 
   return (
-    <Box onClick={fiftyHandler}>
+    <Box onClick={fiftyHandler} className={classes.icon}>
       <Typography variant={'inherit'}>50:50</Typography>
     </Box>
   )

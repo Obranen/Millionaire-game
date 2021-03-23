@@ -1,6 +1,4 @@
 import {Button, Container, TextField, Typography} from "@material-ui/core"
-import Avatar from '@material-ui/core/Avatar'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import {useEffect, useState} from "react"
 import {register} from "../../../store/actionsAsync/auth"
 import {useDispatch, useSelector} from "react-redux"
@@ -49,11 +47,8 @@ export default function SignUp() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Avatar>
-        <LockOutlinedIcon/>
-      </Avatar>
       <Typography component="h1" variant="h5">
-        Sign up
+        Регистрация
       </Typography>
       <form noValidate id={'form-register-user'}>
         <TextField
@@ -100,7 +95,7 @@ export default function SignUp() {
           color="primary"
           onClick={signUpHandler('error')}
         >
-          Sign up
+          Зарегистрироваться
         </Button>
       </form>
     </Container>

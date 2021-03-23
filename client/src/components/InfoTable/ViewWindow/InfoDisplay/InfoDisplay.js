@@ -1,22 +1,31 @@
-import {Box, Typography} from "@material-ui/core"
+import {Paper} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {useCallback, useEffect, useState} from "react"
 import {showTextContent} from "../../../../store/actions/assist"
 import {timerStop} from "../../../../store/actions/timer"
 import {losingOn} from "../../../../store/actions/quiz"
 import WinnerGame from "./WinnerGame/WinnerGame"
-import LostGame from "./LostGame/LostGame";
+import LostGame from "./LostGame/LostGame"
+import infoDisplayStyles from './infoDisplayStyles'
+import {Bar} from "react-chartjs-2"
+import CancelPresentationIcon from '@material-ui/icons/CancelPresentation'
 
 const InfoDisplay = () => {
   const dispatch = useDispatch()
-  const [returnableContent, setReturnableContent] = useState(null)
   const winner = useSelector(state => state.quizReducer.winner)
   const rightAnswerLetter = useSelector(state => state.quizReducer.rightAnswerLetter)
   const losing = useSelector(state => state.quizReducer.losing)
+  const currentQuestion = useSelector(state => state.quizReducer.currentQuestion)
   const fiftyState = useSelector(state => state.fiftyReducer.fiftyState)
   const hallHelp = useSelector(state => state.hallHelpReducer.hallHelp)
   const callFriend = useSelector(state => state.callFriendReducer.callFriend)
   const seconds = useSelector(state => state.timerReducer.seconds)
+  const [barData, setBarData] = useState({})
+  const [barOptions, setBarOptions] = useState({})
+  const [callFriendAnswer, setCallFriendAnswer] = useState('')
+  const [closePaper, setClosePaper] = useState(true)
+
+  const classes = infoDisplayStyles()
 
   const randomInteger = (min, max) => {
     let rand = min + Math.random() * (max + 1 - min)
@@ -38,24 +47,49 @@ const InfoDisplay = () => {
 
     const rightNumberAnswer = total - (number1 + number2 + number3)
 
-    let textContent
+    let arrayNumber
     switch (rightAnswerLetter) {
       case 'A':
-        textContent = `${rightAnswerLetter}: ${rightNumberAnswer}% B: ${number1}% C: ${number2}% D: ${number3}`
+        arrayNumber = [rightNumberAnswer, number1, number2, number3]
         break
       case 'B':
-        textContent = `A: ${number1}% ${rightAnswerLetter}: ${rightNumberAnswer}% C: ${number2}% D: ${number3}`
+        arrayNumber = [number1, rightNumberAnswer, number2, number3]
         break
       case 'C':
-        textContent = `A: ${number1}% B: ${number2}% ${rightAnswerLetter}: ${rightNumberAnswer}% D: ${number3}`
+        arrayNumber = [number1, number2, rightNumberAnswer, number3]
         break
       case 'D':
-        textContent = `A: ${number1}% B: ${number2}%  C: ${number3} ${rightAnswerLetter}: ${rightNumberAnswer}%`
+        arrayNumber = [number1, number2, number3, rightNumberAnswer]
         break
       default:
         console.log("Нет таких значений")
     }
-    setReturnableContent(textContent)
+
+    setBarData({
+      labels: ['A', 'B', 'C', 'D'],
+      datasets: [
+        {
+          data: arrayNumber,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)'
+          ],
+        }
+      ]
+    })
+
+    setBarOptions({
+      options: {
+        title: {
+          display: true,
+          text: 'Помощь Зала',
+          fontSize: 25
+        },
+      }
+    })
+
   }, [rightAnswerLetter])
 
   const callFriendContent = useCallback(() => {
@@ -63,17 +97,26 @@ const InfoDisplay = () => {
     const max = 10
     const number = randomInteger(min, max)
 
-    let trueContext
+    let answer
     if (number > 4) {
-      trueContext = `Я думаю правильный ответ - ${rightAnswerLetter}(правильно)`
+      answer = rightAnswerLetter
     } else {
       const lettersAnswer = ['A', 'B', 'C', 'D']
       const wrongLettersAnswer = lettersAnswer.filter(letter => letter !== rightAnswerLetter)
-      const letterAnswer = randomArrayValue(wrongLettersAnswer)
-      trueContext = `Я думаю правильный ответ - ${letterAnswer}(не правильный)`
+      answer = randomArrayValue(wrongLettersAnswer)
     }
-    setReturnableContent(trueContext)
+    setCallFriendAnswer(answer)
   }, [rightAnswerLetter])
+
+  const closeHandler = () => {
+    setClosePaper(false)
+  }
+
+  useEffect(() => {
+    if (currentQuestion) {
+      setClosePaper(true)
+    }
+  }, [currentQuestion])
 
   useEffect(() => {
     if (callFriend) {
@@ -102,35 +145,47 @@ const InfoDisplay = () => {
   }, [seconds, dispatch])
 
   return (
-    <Box>
+    <>
       {
-        fiftyState ?
-          <Typography variant={'h5'} align={'center'} display={"block"}>
+        fiftyState && closePaper ?
+          <Paper elevation={3} className={classes.paper}>
+            <CancelPresentationIcon
+              className={classes.iconClose}
+              onClick={closeHandler}
+            />
             Компьютер убрал два неправильных ответа.
-          </Typography> :
+          </Paper> :
           null
       }
 
       {
-        hallHelp ?
-          <Typography variant={'h5'} align={'center'} display={"block"}>
-            {returnableContent}
-          </Typography> :
+        hallHelp && closePaper ?
+          <Paper elevation={3} className={classes.paper}>
+            <CancelPresentationIcon
+              className={classes.iconClose}
+              onClick={closeHandler}
+            />
+            <Bar data={barData} options={barOptions.options}/>
+          </Paper> :
           null
       }
 
       {
-        callFriend ?
-          <Typography variant={'h5'} align={'center'} display={"block"}>
-            {returnableContent}
-          </Typography> :
+        callFriend && closePaper?
+          <Paper elevation={3} className={classes.paper}>
+            <CancelPresentationIcon
+              className={classes.iconClose}
+              onClick={closeHandler}
+            />
+            Я думаю правильный ответ - {callFriendAnswer}
+          </Paper> :
           null
       }
 
       {winner ? <WinnerGame/> : null}
 
       {losing ? <LostGame/> : null}
-    </Box>
+    </>
   )
 }
 

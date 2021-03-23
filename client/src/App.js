@@ -1,33 +1,16 @@
 import Routes from "./routes/Routes"
 import Navigation from "./components/Navigation/Navigation"
-import {createMuiTheme, CssBaseline, ThemeProvider} from "@material-ui/core"
+import {CssBaseline, ThemeProvider} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
-import './App.scss'
-import {purple, teal} from "@material-ui/core/colors"
 import {useEffect} from "react"
-import {auth} from "./store/actionsAsync/auth";
+import {auth} from "./store/actionsAsync/auth"
+import lightTheme from './themes/lightTheme'
+import darkTheme from './themes/darkTheme'
+import './App.scss'
 
 const App = () => {
   const dispatch = useDispatch()
   const themeState = useSelector(state => state.switchReducer.themeState)
-
-  const lightTheme = createMuiTheme({
-    palette: {
-      type: 'light',
-      primary: {
-        main: teal[300],
-      },
-    },
-  })
-
-  const darkTheme = createMuiTheme({
-    palette: {
-      type: 'dark',
-      primary: {
-        main: purple[800],
-      },
-    }
-  })
 
   useEffect(() => {
     const data = localStorage.getItem('token')

@@ -8,7 +8,7 @@ const ProgressLevel = () => {
   const winner = useSelector(state => state.quizReducer.winner)
 
   return (
-    <Grid item xs={3}>
+    <Grid item xs={2}>
       {
         losing || winner ?
           null :

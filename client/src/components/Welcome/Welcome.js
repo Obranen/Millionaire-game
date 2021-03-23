@@ -1,9 +1,13 @@
 import React from 'react'
-import {Button, Grid, Typography} from "@material-ui/core"
+import {Box, Button, Grid, Typography} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {timerOn} from "../../store/actions/timer"
 import {startButtonHide} from "../../store/actions/welcome"
 import {quizAddRandomQuiz} from "../../store/actions/quiz";
+
+const styleTypography = {
+  marginTop: '30px'
+}
 
 const Welcome = () => {
   const dispatch = useDispatch()
@@ -30,7 +34,7 @@ const Welcome = () => {
 
   const startGameHandler = () => {
     dispatch(startButtonHide())
-    dispatch(timerOn())
+    // dispatch(timerOn())
     createRandomQuiz()
   }
 
@@ -39,8 +43,16 @@ const Welcome = () => {
       {
         startButtonState ?
           <Grid item xs={12}>
-            <Button variant="contained" onClick={() => startGameHandler()}>Начать Игру</Button>
-            <Typography>
+            <Box textAlign='center'>
+              <Button
+                size="large"
+                color="primary"
+                variant="outlined"
+                onClick={() => startGameHandler()}>
+                Начать Игру
+              </Button>
+            </Box>
+            <Typography style={styleTypography}>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa eaque eligendi modi numquam
               optio quae tenetur vero. Architecto consectetur consequatur cupiditate, dignissimos dolor earum minus
               natus quibusdam quo reiciendis ullam!

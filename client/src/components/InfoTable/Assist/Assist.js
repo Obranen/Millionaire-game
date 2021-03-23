@@ -1,11 +1,12 @@
-import {Grid, Paper} from "@material-ui/core"
+import {Avatar, Grid,} from "@material-ui/core"
 import HallHelp from "./HallHelp/HallHelp"
 import Fifty from "./Fifty/Fifty"
 import CallFriend from "./CallFriend/CallFriend"
 import './Assist.scss'
 import {useDispatch, useSelector} from "react-redux"
-import {useEffect} from "react"
+import React, {useEffect} from "react"
 import {oneHelpOn} from "../../../store/actions/assist"
+import assistStyles from './assistStyles'
 
 const Assist = () => {
   const dispatch = useDispatch()
@@ -14,6 +15,8 @@ const Assist = () => {
   const callFriendDisable = useSelector(state => state.callFriendReducer.callFriendDisable)
   const losing = useSelector(state => state.quizReducer.losing)
   const winner = useSelector(state => state.quizReducer.winner)
+
+  const classes = assistStyles()
 
   useEffect(() => {
     if (fiftyDisable) {
@@ -28,16 +31,23 @@ const Assist = () => {
   })
 
   return (
-    <Grid item xs={3}>
-      {
-        losing || winner ?
-          null :
-          <Paper>
+    <Grid
+      item
+      xs={1}
+    >
+      {losing || winner ?
+        null :
+        <>
+          <Avatar variant="rounded" className={classes.success}>
             <Fifty/>
+          </Avatar>
+          <Avatar variant="rounded" className={classes.success}>
             <HallHelp/>
+          </Avatar>
+          <Avatar variant="rounded" className={classes.success}>
             <CallFriend/>
-          </Paper>
-      }
+          </Avatar>
+        </>}
     </Grid>
   )
 }

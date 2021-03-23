@@ -1,6 +1,4 @@
 import {Button, Container, TextField, Typography} from "@material-ui/core"
-import Avatar from '@material-ui/core/Avatar'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import {useDispatch, useSelector} from "react-redux"
 import {useEffect, useState} from "react"
 import {useValidation} from "../../../hooks/validation.hook"
@@ -47,11 +45,8 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
       <div>
-        <Avatar>
-          <LockOutlinedIcon/>
-        </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Вход
         </Typography>
         <form noValidate>
           <TextField
@@ -88,7 +83,7 @@ export default function SignIn() {
             color="primary"
             onClick={signInHandler('error')}
           >
-            Sign In
+            Войти
           </Button>
         </form>
       </div>

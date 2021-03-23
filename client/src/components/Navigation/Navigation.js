@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom"
-import {AppBar, Box, Button, Container, Toolbar} from "@material-ui/core"
+import {AppBar, Box, Button, Container, Toolbar, Typography} from "@material-ui/core"
 import SwitchTheme from "./Switch/Switch"
 import {makeStyles} from '@material-ui/core/styles'
 import {useDispatch, useSelector} from "react-redux"
@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     marginBottom: theme.spacing(3),
+    backgroundColor: theme.palette.primary.dark,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -29,39 +30,51 @@ const Navigation = () => {
   }
 
   return (
-    <AppBar position="static" color="primary" className={classes.root}>
+    <AppBar position="static" className={classes.root}>
       <Container>
         <Toolbar>
           <Box className={classes.title}>
-            <Button exact to="/" component={NavLink}>
-              Millionaire
+            <Button color="secondary" exact to="/" component={NavLink}>
+              <Typography variant='h6'>
+                Millionaire
+              </Typography>
             </Button>
           </Box>
           <SwitchTheme/>
-          {
-            authenticated ?
+          {authenticated ?
               <>
-                <Button to="/winners" component={NavLink}>
+                <Button
+                  color="secondary"
+                  to="/winners"
+                  component={NavLink}
+                >
                   Победители
                 </Button>
-                <Button to="/admin/quiz" component={NavLink}>
+                <Button
+                  color="secondary"
+                  to="/admin/quiz"
+                  component={NavLink}
+                >
                   Admin quiz
                 </Button>
               </>
-              :
-              null
-          }
-          {
-            authenticated ?
+            :
+              null}
+          {authenticated ?
               <Button
+                color="secondary"
                 onClick={() => logoutHandler()}
               >
                 Выход
-              </Button> :
-              <Button to="/auth" component={NavLink}>
-                Вход/Регистрация
               </Button>
-          }
+            :
+              <Button
+                color="secondary"
+                to="/auth"
+                component={NavLink}
+              >
+                Вход/Регистрация
+              </Button>}
         </Toolbar>
       </Container>
     </AppBar>

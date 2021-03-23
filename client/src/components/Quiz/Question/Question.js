@@ -1,21 +1,14 @@
 import React from "react"
 import {Grid, Paper, Typography} from "@material-ui/core"
-import {makeStyles} from "@material-ui/core/styles"
-
-const useStyles = makeStyles((theme) => ({
-  root: {},
-  titleQuestion: {
-    textAlign: 'center',
-  },
-}))
+import questionStyles from './questionStyles'
 
 const Question = props => {
-  const classes = useStyles()
+  const classes = questionStyles()
 
   return (
     <Grid item xs={12}>
-      <Paper>
-        <Typography variant="h5" className={classes.titleQuestion}>{props.question}</Typography>
+      <Paper className={classes.paper} elevation={5}>
+        <Typography className={classes.text} variant="h5" align="center">{props.question}</Typography>
       </Paper>
     </Grid>
   )
