@@ -1,8 +1,8 @@
 import React from 'react'
 import {Button} from "@material-ui/core"
-import {useDispatch, useSelector} from "react-redux";
-import {saveGameLost, saveGameWin} from "../../../../../store/actionsAsync/winner";
-import {infoDisplaySaveOff} from "../../../../../store/actions/infoDisplay";
+import {useDispatch, useSelector} from "react-redux"
+import {saveGameLost, saveGameWin} from "../../../../../store/actionsAsync/winner"
+import {infoDisplaySaveOff} from "../../../../../store/actions/infoDisplay"
 
 const SaveGame = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const SaveGame = () => {
           null
       }
     </>
-  );
-};
+  )
+}
 
 export default SaveGame

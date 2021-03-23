@@ -1,9 +1,8 @@
-import React from 'react';
-import {Button, Typography} from "@material-ui/core";
-import RestartGame from "../RestartGame/RestartGame";
-import {useSelector} from "react-redux";
-import {NavLink} from "react-router-dom";
-import SaveGame from "../SaveGame/SaveGame";
+import React from 'react'
+import RestartGame from "../RestartGame/RestartGame"
+import {useSelector} from "react-redux"
+import SaveGame from "../SaveGame/SaveGame"
+import WrapperMessage from "../../../../../ui/WrapperMessage/WrapperMessage"
 
 const LostGame = () => {
   const currentWinningsMoney = useSelector(state => state.progressLevelReducer.currentWinningsMoney)
@@ -19,18 +18,14 @@ const LostGame = () => {
               {
                 currentWinningsMoney === undefined ?
                   <>
-                    <Typography variant={'h5'} align={'center'} display={"block"}>
-                      Ваше время вышло!
-                    </Typography>
-                    <RestartGame/>
+                    <WrapperMessage content={`Ваше время вышло!`}/>
+                    <WrapperMessage content={<RestartGame/>}/>
                   </>
                   :
                   <>
-                    <Typography variant={'h5'} align={'center'} display={"block"}>
-                      Ваше время вышло! Ваш выйгрыш {currentWinningsMoney}&#8372;
-                    </Typography>
-                    <RestartGame/>
-                    <SaveGame/>
+                    <WrapperMessage content={`Ваше время вышло! Ваш выйгрыш ${currentWinningsMoney} гривень`}/>
+                    <WrapperMessage content={<RestartGame/>}/>
+                    <WrapperMessage content={<SaveGame/>}/>
                   </>
               }
             </>
@@ -40,35 +35,26 @@ const LostGame = () => {
               {
                 currentWinningsMoney === undefined ?
                   <>
-                    <Typography variant={'h5'} align={'center'} display={"block"}>
-                      Не правильный ответ!
-                    </Typography>
-                    <RestartGame/>
+                    <WrapperMessage content={`Не правильный ответ!`}/>
+                    <WrapperMessage content={<RestartGame/>}/>
                   </>
                   :
                   <>
-                    <Typography variant={'h5'} align={'center'} display={"block"}>
-                      Не правильный ответ! Ваш выйгрыш {currentWinningsMoney}&#8372;
-                    </Typography>
-                    <RestartGame/>
-                    <SaveGame/>
+                    <WrapperMessage content={`Не правильный ответ! Ваш выйгрыш ${currentWinningsMoney} гривень`}/>
+                    <WrapperMessage content={<RestartGame/>}/>
+                    <WrapperMessage content={<SaveGame/>}/>
                   </>
               }
             </>
           :
-          <Typography variant={'h5'} align={'center'} display={"block"}>
-            Ваш выйгрыш {currentWinningsMoney}&#8372;
-            <RestartGame/>
-            <hr/>
-            Для сохранения результата Авторизуйтесь
-            <Button to="/auth" component={NavLink}>
-              Вход/Регистрация
-            </Button>
-          </Typography>
+          <>
+            <WrapperMessage content={`Ваш выйгрыш ${currentWinningsMoney} гривень`}/>
+            <WrapperMessage content={`Для сохранения результата Авторизуйтесь`}/>
+            <WrapperMessage content={<RestartGame/>}/>
+          </>
       }
     </>
-  );
+  )
 }
-;
 
 export default LostGame

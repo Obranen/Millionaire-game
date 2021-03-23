@@ -130,29 +130,9 @@ const InfoDisplay = () => {
 
   return (
     <>
-      {
-        fiftyState ?
-          <WrapperMessage
-            content={'Компьютер убрал два неправильных ответа.'}
-          /> :
-          null
-      }
-      {
-        hallHelp ?
-          <WrapperMessage
-            content={
-              <Bar data={barData} options={barOptions.options}/>
-            }
-          /> :
-          null
-      }
-      {
-        callFriend ?
-          <WrapperMessage
-            content={`Я думаю правильный ответ - ${callFriendAnswer}`}
-          /> :
-          null
-      }
+      {fiftyState ? <WrapperMessage content={'Компьютер убрал два неправильных ответа.'}/> : null}
+      {hallHelp ? <WrapperMessage content={<Bar data={barData} options={barOptions.options}/>}/> : null}
+      {callFriend ? <WrapperMessage content={`Я думаю правильный ответ - ${callFriendAnswer}`}/> : null}
       {winner ? <WinnerGame/> : null}
       {losing ? <LostGame/> : null}
     </>

@@ -34,7 +34,7 @@ const Welcome = () => {
 
   const startGameHandler = () => {
     dispatch(startButtonHide())
-    // dispatch(timerOn())
+    dispatch(timerOn())
     createRandomQuiz()
   }
 
