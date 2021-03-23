@@ -1,5 +1,5 @@
 import {makeStyles} from "@material-ui/core/styles"
-import bgMillionaire from "../../../image/millionaire.png"
+import bgMillionaire from "./viewWindowImage/millionaire.png"
 
 const viewWindowDarkStyles = makeStyles(() => ({
   background: {

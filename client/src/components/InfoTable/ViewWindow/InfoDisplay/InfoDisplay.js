@@ -1,4 +1,3 @@
-import {Paper} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {useCallback, useEffect, useState} from "react"
 import {showTextContent} from "../../../../store/actions/assist"
@@ -6,16 +5,14 @@ import {timerStop} from "../../../../store/actions/timer"
 import {losingOn} from "../../../../store/actions/quiz"
 import WinnerGame from "./WinnerGame/WinnerGame"
 import LostGame from "./LostGame/LostGame"
-import infoDisplayStyles from './infoDisplayStyles'
 import {Bar} from "react-chartjs-2"
-import CancelPresentationIcon from '@material-ui/icons/CancelPresentation'
+import WrapperMessage from "../../../../ui/WrapperMessage/WrapperMessage";
 
 const InfoDisplay = () => {
   const dispatch = useDispatch()
   const winner = useSelector(state => state.quizReducer.winner)
   const rightAnswerLetter = useSelector(state => state.quizReducer.rightAnswerLetter)
   const losing = useSelector(state => state.quizReducer.losing)
-  const currentQuestion = useSelector(state => state.quizReducer.currentQuestion)
   const fiftyState = useSelector(state => state.fiftyReducer.fiftyState)
   const hallHelp = useSelector(state => state.hallHelpReducer.hallHelp)
   const callFriend = useSelector(state => state.callFriendReducer.callFriend)
@@ -23,9 +20,6 @@ const InfoDisplay = () => {
   const [barData, setBarData] = useState({})
   const [barOptions, setBarOptions] = useState({})
   const [callFriendAnswer, setCallFriendAnswer] = useState('')
-  const [closePaper, setClosePaper] = useState(true)
-
-  const classes = infoDisplayStyles()
 
   const randomInteger = (min, max) => {
     let rand = min + Math.random() * (max + 1 - min)
@@ -108,16 +102,6 @@ const InfoDisplay = () => {
     setCallFriendAnswer(answer)
   }, [rightAnswerLetter])
 
-  const closeHandler = () => {
-    setClosePaper(false)
-  }
-
-  useEffect(() => {
-    if (currentQuestion) {
-      setClosePaper(true)
-    }
-  }, [currentQuestion])
-
   useEffect(() => {
     if (callFriend) {
       dispatch(showTextContent())
@@ -147,43 +131,29 @@ const InfoDisplay = () => {
   return (
     <>
       {
-        fiftyState && closePaper ?
-          <Paper elevation={3} className={classes.paper}>
-            <CancelPresentationIcon
-              className={classes.iconClose}
-              onClick={closeHandler}
-            />
-            Компьютер убрал два неправильных ответа.
-          </Paper> :
+        fiftyState ?
+          <WrapperMessage
+            content={'Компьютер убрал два неправильных ответа.'}
+          /> :
           null
       }
-
       {
-        hallHelp && closePaper ?
-          <Paper elevation={3} className={classes.paper}>
-            <CancelPresentationIcon
-              className={classes.iconClose}
-              onClick={closeHandler}
-            />
-            <Bar data={barData} options={barOptions.options}/>
-          </Paper> :
+        hallHelp ?
+          <WrapperMessage
+            content={
+              <Bar data={barData} options={barOptions.options}/>
+            }
+          /> :
           null
       }
-
       {
-        callFriend && closePaper?
-          <Paper elevation={3} className={classes.paper}>
-            <CancelPresentationIcon
-              className={classes.iconClose}
-              onClick={closeHandler}
-            />
-            Я думаю правильный ответ - {callFriendAnswer}
-          </Paper> :
+        callFriend ?
+          <WrapperMessage
+            content={`Я думаю правильный ответ - ${callFriendAnswer}`}
+          /> :
           null
       }
-
       {winner ? <WinnerGame/> : null}
-
       {losing ? <LostGame/> : null}
     </>
   )

@@ -39,6 +39,7 @@ const Quiz = () => {
   const answerClickHandler = (answerID, event) => {
     let target = event.target
     const milliseconds = 4500
+    const maxQuestions = 14
 
     if (target.tagName !== ('DIV')) {
       target = target.closest('div')
@@ -57,7 +58,7 @@ const Quiz = () => {
           dispatch(oneHelpOff())
           dispatch(updateTimer())
 
-          if (currentQuestion !== 14) {
+          if (currentQuestion !== maxQuestions) {
             dispatch(nextQuestion())
 
             if (fiftyState) {
