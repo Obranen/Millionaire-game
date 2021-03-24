@@ -8,18 +8,22 @@ const WinnerGame = () => {
   const authenticated = useSelector(state => state.authReducer.authenticated)
   const fullWinningsMoney = useSelector(state => state.progressLevelReducer.fullWinningsMoney)
 
+  function numberWithSpaces({number}) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+  }
+
   return (
     <>
       {
         authenticated ?
           <>
-            <WrapperMessage content={`Вы Победили! Текущий выйгрыш ${fullWinningsMoney} гривень`}/>
+            <WrapperMessage content={`Вы Победили! Текущий выйгрыш ${numberWithSpaces({number: fullWinningsMoney})} гривень`}/>
             <WrapperMessage content={<SaveGame/>}/>
             <WrapperMessage content={<RestartGame/>}/>
           </>
           :
           <>
-            <WrapperMessage content={`Вы Победили! Текущий выйгрыш ${fullWinningsMoney} гривень`}/>
+            <WrapperMessage content={`Вы Победили! Текущий выйгрыш ${numberWithSpaces({number: fullWinningsMoney})} гривень`}/>
             <WrapperMessage content={`Для сохранения результата Авторизуйтесь`}/>
           </>
       }

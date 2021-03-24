@@ -5,7 +5,7 @@ import {
   quizClickOnButtonEditOff,
   quizStateEditOff,
 } from "../../../store/actions/quiz"
-import {createQuiz, updateQuiz} from "../../../store/actionsAsync/quiz";
+import {createQuiz, updateQuiz} from "../../../store/actionsAsync/quiz"
 
 const QuizForm = () => {
   const dispatch = useDispatch()
@@ -131,6 +131,9 @@ const QuizForm = () => {
 
   return (
     <>
+      <Typography align="center" variant="h4">
+        Создание, редактирование и удаление вопросов.
+      </Typography>
       <form id={'create-quiz'} noValidate>
         <TextField
           variant="outlined"

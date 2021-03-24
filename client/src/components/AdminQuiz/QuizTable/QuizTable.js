@@ -73,7 +73,8 @@ const QuizTable = () => {
                     ))}
                   <TableCell align="center">
                     <Button
-                      variant="contained"
+                      variant="outlined"
+                      color="primary"
                       data-id={quiz._id}
                       onClick={editHandler}
                     >
@@ -82,7 +83,8 @@ const QuizTable = () => {
                   </TableCell>
                   <TableCell align="center">
                     <Button
-                      variant="contained"
+                      variant="outlined"
+                      color="primary"
                       data-id={quiz._id}
                       onClick={deleteHandler}
                     >

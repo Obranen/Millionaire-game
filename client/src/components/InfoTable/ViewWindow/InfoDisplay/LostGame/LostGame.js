@@ -9,6 +9,10 @@ const LostGame = () => {
   const seconds = useSelector(state => state.timerReducer.seconds)
   const authenticated = useSelector(state => state.authReducer.authenticated)
 
+  function numberWithSpaces({number}) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+  }
+
   return (
     <>
       {
@@ -23,7 +27,7 @@ const LostGame = () => {
                   </>
                   :
                   <>
-                    <WrapperMessage content={`Ваше время вышло! Ваш выйгрыш ${currentWinningsMoney} гривень`}/>
+                    <WrapperMessage content={`Ваше время вышло! Ваш выйгрыш ${numberWithSpaces({number: currentWinningsMoney})} гривень`}/>
                     <WrapperMessage content={<RestartGame/>}/>
                     <WrapperMessage content={<SaveGame/>}/>
                   </>
@@ -40,7 +44,7 @@ const LostGame = () => {
                   </>
                   :
                   <>
-                    <WrapperMessage content={`Не правильный ответ! Ваш выйгрыш ${currentWinningsMoney} гривень`}/>
+                    <WrapperMessage content={`Не правильный ответ! Ваш выйгрыш ${numberWithSpaces({number: currentWinningsMoney})} гривень`}/>
                     <WrapperMessage content={<RestartGame/>}/>
                     <WrapperMessage content={<SaveGame/>}/>
                   </>
@@ -48,7 +52,7 @@ const LostGame = () => {
             </>
           :
           <>
-            <WrapperMessage content={`Ваш выйгрыш ${currentWinningsMoney} гривень`}/>
+            <WrapperMessage content={`Ваш выйгрыш ${numberWithSpaces({number: currentWinningsMoney})} гривень`}/>
             <WrapperMessage content={`Для сохранения результата Авторизуйтесь`}/>
             <WrapperMessage content={<RestartGame/>}/>
           </>

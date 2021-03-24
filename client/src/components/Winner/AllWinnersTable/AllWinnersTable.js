@@ -1,5 +1,5 @@
 import React from 'react'
-import {withStyles} from '@material-ui/core/styles'
+import {makeStyles, withStyles} from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -10,30 +10,41 @@ import Paper from '@material-ui/core/Paper'
 import {Typography} from "@material-ui/core"
 import {useSelector} from "react-redux"
 
+const allWinnersTableStyles = makeStyles((theme) => ({
+  header: {
+    marginTop: '40px',
+    marginBottom: '10px',
+  },
+}))
+
 const AllWinnersTable = () => {
   const topWin = useSelector(state => state.winnerReducer.topWin)
 
+  const classes = allWinnersTableStyles()
+
   const StyledTableCell = withStyles((theme) => ({
     head: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+      fontSize: '16px',
     },
     body: {
-      fontSize: 14,
-    },
+      color: theme.palette.secondary.contrastText,
+    }
   }))(TableCell)
 
   const StyledTableRow = withStyles((theme) => ({
     root: {
+      backgroundColor: theme.palette.secondary.main,
       '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
+        backgroundColor: theme.palette.secondary.light,
       },
     },
   }))(TableRow)
 
   return (
     <>
-      <Typography variant="h4" align={"center"}>Топ побед всех игроков</Typography>
+      <Typography className={classes.header} variant="h4" align={"center"}>Топ побед всех игроков</Typography>
       <TableContainer component={Paper}>
         <Table aria-label="customized table">
           <TableHead>
