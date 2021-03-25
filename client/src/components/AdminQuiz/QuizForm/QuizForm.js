@@ -1,11 +1,12 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react'
-import {Button, TextField, Typography} from "@material-ui/core"
+import {Box, Button, TextField, Typography} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {
   quizClickOnButtonEditOff,
   quizStateEditOff,
 } from "../../../store/actions/quiz"
 import {createQuiz, updateQuiz} from "../../../store/actionsAsync/quiz"
+import quizFormStyles from "./quizFormStyles";
 
 const QuizForm = () => {
   const dispatch = useDispatch()
@@ -21,6 +22,8 @@ const QuizForm = () => {
   const answerBRef = useRef()
   const answerCRef = useRef()
   const answerDRef = useRef()
+
+  const classes = quizFormStyles()
 
   const clearInput = () => {
     document.querySelectorAll('#create-quiz input').forEach(input => {
@@ -132,7 +135,7 @@ const QuizForm = () => {
   return (
     <>
       <Typography align="center" variant="h4">
-        Создание, редактирование и удаление вопросов.
+        Создать вопрос
       </Typography>
       <form id={'create-quiz'} noValidate>
         <TextField
@@ -158,7 +161,7 @@ const QuizForm = () => {
           onChange={changeHandler}
           inputRef={rightAnswerIdRef}
         />
-        <Typography variant="h5">
+        <Typography className={classes.header} variant="h5">
           Варианты ответов:
         </Typography>
         <TextField
@@ -222,25 +225,31 @@ const QuizForm = () => {
           inputRef={answerDRef}
         />
         {clickOnButtonEdit ?
-          <>
+          <Box className={classes.buttons}>
             <Button
               variant="contained"
+              color="primary"
               onClick={editQuizHandler}
+              size={"large"}
             >
               Редактировать
             </Button>
             <Button
               variant="contained"
+              color="primary"
               onClick={cancelQuizHandler}
+              size={"large"}
             >
               Отменить
             </Button>
-          </> :
+          </Box> :
           <Button
             fullWidth
             variant="contained"
             color="primary"
             onClick={createQuizHandler}
+            size={"large"}
+            className={classes.createButton}
           >
             Создать новый вопрос
           </Button>}

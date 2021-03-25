@@ -16,16 +16,21 @@ const WinnerGame = () => {
     <>
       {
         authenticated ?
-          <>
-            <WrapperMessage content={`Вы Победили! Текущий выйгрыш ${numberWithSpaces({number: fullWinningsMoney})} гривень`}/>
-            <WrapperMessage content={<SaveGame/>}/>
-            <WrapperMessage content={<RestartGame/>}/>
-          </>
+          <WrapperMessage
+            close={false}
+          >
+            <SaveGame/>
+            <p>Вы Победили! Текущий выйгрыш {numberWithSpaces({number: fullWinningsMoney})} &#8372;</p>
+            <RestartGame/>
+          </WrapperMessage>
           :
-          <>
-            <WrapperMessage content={`Вы Победили! Текущий выйгрыш ${numberWithSpaces({number: fullWinningsMoney})} гривень`}/>
-            <WrapperMessage content={`Для сохранения результата Авторизуйтесь`}/>
-          </>
+          <WrapperMessage
+            close={false}
+          >
+            <div>Вы Победили! Текущий выйгрыш {numberWithSpaces({number: fullWinningsMoney})} &#8372;</div>
+            <p>Для сохранения результата Авторизуйтесь</p>
+            <RestartGame/>
+          </WrapperMessage>
       }
     </>
   )

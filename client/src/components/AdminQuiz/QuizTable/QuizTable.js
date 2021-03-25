@@ -7,14 +7,17 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
 import TableBody from "@material-ui/core/TableBody"
-import {useDispatch, useSelector} from "react-redux";
-import {quizAddCurrentId, quizUpdateTableOff} from "../../../store/actions/quiz";
-import {deleteQuizQuestion, getAllQuizzes} from "../../../store/actionsAsync/quiz";
+import {useDispatch, useSelector} from "react-redux"
+import {quizAddCurrentId, quizUpdateTableOff} from "../../../store/actions/quiz"
+import {deleteQuizQuestion, getAllQuizzes} from "../../../store/actionsAsync/quiz"
+import quizTableStyles from "./quizTableStyles";
 
 const QuizTable = () => {
   const dispatch = useDispatch()
   const quiz = useSelector(state => state.quizReducer.quiz)
   const updateTableQuiz = useSelector(state => state.quizReducer.updateTableQuiz)
+
+  const classes = quizTableStyles()
 
   const editHandler = event => {
     const currentId = event.target.parentNode.dataset.id
@@ -43,27 +46,27 @@ const QuizTable = () => {
 
   return (
     <>
-      <Typography align="center" variant="h4">
+      <Typography className={classes.header} align="center" variant="h4">
         Созданные вопросы
       </Typography>
-      <TableContainer component={Paper} id="table-quiz">
+      <TableContainer className={classes.root} component={Paper} id="table-quiz">
         <Table size="small" aria-label="a dense table">
           <TableHead>
-            <TableRow>
-              <TableCell align="center">Вопрос</TableCell>
-              <TableCell align="center">Правильный ответ</TableCell>
-              <TableCell align="center">Ответ "A"</TableCell>
-              <TableCell align="center">Ответ "B"</TableCell>
-              <TableCell align="center">Ответ "C"</TableCell>
-              <TableCell align="center">Ответ "D"</TableCell>
-              <TableCell align="center">Изменить</TableCell>
-              <TableCell align="center">Удалить</TableCell>
+            <TableRow className={classes.head}>
+              <TableCell className={classes.cell} align="center">Вопрос</TableCell>
+              <TableCell className={classes.cell} align="center">Правильный ответ</TableCell>
+              <TableCell className={classes.cell} align="center">Ответ "A"</TableCell>
+              <TableCell className={classes.cell} align="center">Ответ "B"</TableCell>
+              <TableCell className={classes.cell} align="center">Ответ "C"</TableCell>
+              <TableCell className={classes.cell} align="center">Ответ "D"</TableCell>
+              <TableCell className={classes.cell} align="center">Изменить</TableCell>
+              <TableCell className={classes.cell} align="center">Удалить</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {quiz.map((quiz, index) => {
+            {quiz.map((quiz) => {
               return (
-                <TableRow key={index}>
+                <TableRow key={quiz._id}>
                   <TableCell align="center" className={'quiz-question'}>{quiz.question}</TableCell>
                   <TableCell align="center" className={'quiz-rightAnswerId'}>{quiz.rightAnswerId}</TableCell>
                   {quiz.answers.map((answer, index) => (

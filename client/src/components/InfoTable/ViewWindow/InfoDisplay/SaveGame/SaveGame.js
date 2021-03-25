@@ -27,7 +27,7 @@ const SaveGame = () => {
       {
         displaySave ?
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             onClick={() => saveGameHandler()}
           >

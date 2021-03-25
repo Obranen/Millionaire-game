@@ -33,7 +33,13 @@ const RestartGame = () => {
   }
 
   return (
-    <Button variant="contained" onClick={() => restartGameHandler()}>Начать игру заново</Button>
+    <Button
+      variant="outlined"
+      color={"primary"}
+      onClick={() => restartGameHandler()}
+    >
+      Начать игру заново
+    </Button>
   )
 }
 

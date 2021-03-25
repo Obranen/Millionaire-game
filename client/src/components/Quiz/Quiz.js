@@ -20,7 +20,7 @@ import {
 import {
   hallHelpDeleteClick,
 } from "../../store/actions/hallHelp"
-import {timerStop, updateTimer} from "../../store/actions/timer"
+import {timerHideAction, timerOn, timerStop, updateTimer} from "../../store/actions/timer"
 import quizStyles from './quizStyles'
 
 const Quiz = () => {
@@ -49,6 +49,7 @@ const Quiz = () => {
       setRepeatedClick(false)
       if (rightAnswerId === answerID) {
         target.classList.add(classes.success)
+        dispatch(timerStop())
 
         const timeout = window.setTimeout(() => {
           if (textContent) {
@@ -82,6 +83,7 @@ const Quiz = () => {
           target.classList.remove(classes.success)
           window.clearTimeout(timeout)
           setRepeatedClick(true)
+          dispatch(timerOn())
         }, milliseconds)
       } else {
         target.classList.add(classes.error)
@@ -91,6 +93,7 @@ const Quiz = () => {
           dispatch(losingOn())
           window.clearTimeout(timeout)
           setRepeatedClick(true)
+          dispatch(timerHideAction())
         }, milliseconds)
 
         if (fiftyState) {

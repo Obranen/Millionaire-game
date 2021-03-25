@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux"
-import {useCallback, useEffect, useState} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import {showTextContent} from "../../../../store/actions/assist"
-import {timerStop} from "../../../../store/actions/timer"
+import {timerHideAction, timerStop} from "../../../../store/actions/timer"
 import {losingOn} from "../../../../store/actions/quiz"
 import WinnerGame from "./WinnerGame/WinnerGame"
 import LostGame from "./LostGame/LostGame"
@@ -119,6 +119,7 @@ const InfoDisplay = () => {
   useEffect(() => {
     if (winner) {
       dispatch(timerStop())
+      dispatch(timerHideAction())
     }
   }, [winner, dispatch])
 
@@ -130,9 +131,9 @@ const InfoDisplay = () => {
 
   return (
     <>
-      {fiftyState ? <WrapperMessage content={'Компьютер убрал два неправильных ответа.'}/> : null}
-      {hallHelp ? <WrapperMessage content={<Bar data={barData} options={barOptions.options}/>}/> : null}
-      {callFriend ? <WrapperMessage content={`Я думаю правильный ответ - ${callFriendAnswer}`}/> : null}
+      {fiftyState ? <WrapperMessage>Компьютер убрал два неправильных ответа</WrapperMessage> : null}
+      {hallHelp ? <WrapperMessage><Bar data={barData} options={barOptions.options}/></WrapperMessage> : null}
+      {callFriend ? <WrapperMessage>Я думаю правильный ответ - {callFriendAnswer}</WrapperMessage> : null}
       {winner ? <WinnerGame/> : null}
       {losing ? <LostGame/> : null}
     </>

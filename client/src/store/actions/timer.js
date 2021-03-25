@@ -1,4 +1,4 @@
-import {SECONDS_DECREMENT, TIMER_ON, TIMER_STOP, UPDATE_TIMER} from "./actionTypes"
+import {SECONDS_DECREMENT, TIMER_HIDE, TIMER_ON, TIMER_STOP, UPDATE_TIMER} from "./actionTypes"
 
 export const secondsDecrement = () => {
   return {
@@ -20,5 +20,11 @@ export const updateTimer = () => {
 export const timerStop = () => {
   return {
     type: TIMER_STOP
+  }
+}
+
+export const timerHideAction = () => {
+  return {
+    type: TIMER_HIDE
   }
 }

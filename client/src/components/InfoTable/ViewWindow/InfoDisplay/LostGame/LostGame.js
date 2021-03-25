@@ -21,41 +21,52 @@ const LostGame = () => {
             <>
               {
                 currentWinningsMoney === undefined ?
-                  <>
-                    <WrapperMessage content={`Ваше время вышло!`}/>
-                    <WrapperMessage content={<RestartGame/>}/>
-                  </>
+                  <WrapperMessage
+                    close={false}
+                  >
+                    Ваше время вышло!
+                    <RestartGame/>
+                  </WrapperMessage>
                   :
-                  <>
-                    <WrapperMessage content={`Ваше время вышло! Ваш выйгрыш ${numberWithSpaces({number: currentWinningsMoney})} гривень`}/>
-                    <WrapperMessage content={<RestartGame/>}/>
-                    <WrapperMessage content={<SaveGame/>}/>
-                  </>
+                  <WrapperMessage
+                    close={false}
+                  >
+                    <SaveGame/>
+                    <p>Ваше время вышло!</p>
+                    <p>Ваш выйгрыш {numberWithSpaces({number: currentWinningsMoney})} &#8372;</p>
+                    <RestartGame/>
+                  </WrapperMessage>
               }
             </>
             :
             <>
-
               {
                 currentWinningsMoney === undefined ?
-                  <>
-                    <WrapperMessage content={`Не правильный ответ!`}/>
-                    <WrapperMessage content={<RestartGame/>}/>
-                  </>
+                  <WrapperMessage
+                    close={false}
+                  >
+                    <div>Не правильный ответ!</div>
+                    <RestartGame/>
+                  </WrapperMessage>
                   :
-                  <>
-                    <WrapperMessage content={`Не правильный ответ! Ваш выйгрыш ${numberWithSpaces({number: currentWinningsMoney})} гривень`}/>
-                    <WrapperMessage content={<RestartGame/>}/>
-                    <WrapperMessage content={<SaveGame/>}/>
-                  </>
+                  <WrapperMessage
+                    close={false}
+                  >
+                    <SaveGame/>
+                    <p>Не правильный ответ!</p>
+                    <p>Ваш выйгрыш {numberWithSpaces({number: currentWinningsMoney})} &#8372;</p>
+                    <RestartGame/>
+                  </WrapperMessage>
               }
             </>
           :
-          <>
-            <WrapperMessage content={`Ваш выйгрыш ${numberWithSpaces({number: currentWinningsMoney})} гривень`}/>
-            <WrapperMessage content={`Для сохранения результата Авторизуйтесь`}/>
-            <WrapperMessage content={<RestartGame/>}/>
-          </>
+          <WrapperMessage
+            close={false}
+          >
+            <div>Ваш выйгрыш {numberWithSpaces({number: currentWinningsMoney})} &#8372;</div>
+            <p>Для сохранения результата Авторизуйтесь</p>
+            <RestartGame/>
+          </WrapperMessage>
       }
     </>
   )

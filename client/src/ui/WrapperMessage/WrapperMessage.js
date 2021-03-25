@@ -3,11 +3,11 @@ import CancelPresentationIcon from "@material-ui/icons/CancelPresentation"
 import {Paper} from "@material-ui/core"
 import wrapperMessageStyles from './wrapperMessageStyles'
 import {useSelector} from "react-redux"
-import MessageContent from "./MessageContent/MessageContent";
 
 const WrapperMessage = props => {
   const currentQuestion = useSelector(state => state.quizReducer.currentQuestion)
   const [closePaper, setClosePaper] = useState(true)
+  const [closeIcon, setCloseIcon] = useState(true)
 
   const classes = wrapperMessageStyles()
 
@@ -21,16 +21,22 @@ const WrapperMessage = props => {
     }
   }, [currentQuestion])
 
+  useEffect(() => {
+    if (props.close === false) {
+      setCloseIcon(false)
+    }
+  }, [props.close])
+
   return (
     closePaper ?
     <Paper elevation={3} className={classes.paper}>
-      <CancelPresentationIcon
-        className={classes.iconClose}
-        onClick={closeHandler}
-      />
-      <MessageContent>
-        {props.content}
-      </MessageContent>
+      {closeIcon ?
+        <CancelPresentationIcon
+          className={classes.iconClose}
+          onClick={closeHandler}
+        /> :
+        null}
+      {props.children}
     </Paper> :
       null
   )
