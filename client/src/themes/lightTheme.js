@@ -33,7 +33,20 @@ const lightTheme = createMuiTheme({
   error: {
     backgroundColor: 'red',
     color: 'write',
-  }
+  },
+  warning: {
+    backgroundColor: 'orange',
+    color: 'write',
+  },
+  overrides: {
+    MuiTooltip: {
+      tooltip: {
+        fontSize: "16px",
+        color: '#000000',
+        backgroundColor: '#c5cae9',
+      }
+    }
+  },
 })
 
 export default lightTheme

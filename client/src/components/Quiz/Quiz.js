@@ -38,7 +38,8 @@ const Quiz = () => {
 
   const answerClickHandler = (answerID, event) => {
     let target = event.target
-    const milliseconds = 4500
+    const milliseconds = 6000
+    const milliseconds2 = 3000
     const maxQuestions = 14
 
     if (target.tagName !== ('DIV')) {
@@ -47,65 +48,84 @@ const Quiz = () => {
 
     if (repeatedClick) {
       setRepeatedClick(false)
-      if (rightAnswerId === answerID) {
-        target.classList.add(classes.success)
-        dispatch(timerStop())
+      target.classList.add(classes.currentSelectedAnswer)
 
-        const timeout = window.setTimeout(() => {
-          if (textContent) {
-            dispatch(hideTextContent())
+      const timeout = window.setTimeout(() => {
+        if (rightAnswerId === answerID) {
+
+          if (target.classList.contains(classes.currentSelectedAnswer)) {
+            target.classList.remove(classes.currentSelectedAnswer)
           }
 
-          dispatch(oneHelpOff())
-          dispatch(updateTimer())
+          target.classList.add(classes.success)
+          dispatch(timerStop())
 
-          if (currentQuestion !== maxQuestions) {
-            dispatch(nextQuestion())
+          const timeout = window.setTimeout(() => {
+            if (textContent) {
+              dispatch(hideTextContent())
+            }
 
-            if (fiftyState) {
-              let $itemAnswer = document.querySelectorAll('.fifty-item-hidden')
-              $itemAnswer.forEach(item => {
-                item.classList.remove('fifty-item-hidden')
-              })
-              dispatch(fiftyDeleteClick())
+            dispatch(oneHelpOff())
+            dispatch(updateTimer())
+
+            if (currentQuestion !== maxQuestions) {
+              dispatch(nextQuestion())
+
+              if (fiftyState) {
+                let $itemAnswer = document.querySelectorAll('.fifty-item-hidden')
+                $itemAnswer.forEach(item => {
+                  item.classList.remove('fifty-item-hidden')
+                })
+                dispatch(fiftyDeleteClick())
+              }
+              if (hallHelp) {
+                dispatch(hallHelpDeleteClick())
+              }
+              if (callFriend) {
+                dispatch(callFriendDeleteClick())
+              }
+            } else {
+              dispatch(winnerOn())
+              console.log('Конец игры!')
             }
-            if (hallHelp) {
-              dispatch(hallHelpDeleteClick())
-            }
-            if (callFriend) {
-              dispatch(callFriendDeleteClick())
-            }
-          } else {
-            dispatch(winnerOn())
-            console.log('Конец игры!')
+
+            target.classList.remove(classes.success)
+            window.clearTimeout(timeout)
+            setRepeatedClick(true)
+            dispatch(timerOn())
+          }, milliseconds)
+        } else {
+
+          if (target.classList.contains(classes.currentSelectedAnswer)) {
+            target.classList.remove(classes.currentSelectedAnswer)
           }
 
-          target.classList.remove(classes.success)
-          window.clearTimeout(timeout)
-          setRepeatedClick(true)
-          dispatch(timerOn())
-        }, milliseconds)
-      } else {
-        target.classList.add(classes.error)
-        dispatch(timerStop())
-        const timeout = window.setTimeout(() => {
-          target.classList.remove(classes.error)
-          dispatch(losingOn())
-          window.clearTimeout(timeout)
-          setRepeatedClick(true)
-          dispatch(timerHideAction())
-        }, milliseconds)
+          const $rightAnswer = target.parentNode.parentNode.querySelector(`.MuiPaper-root[data-answer-id="${rightAnswerId}"]`)
 
-        if (fiftyState) {
-          dispatch(fiftyDeleteClick())
+          $rightAnswer.classList.add(classes.success)
+          target.classList.add(classes.error)
+          dispatch(timerStop())
+          const timeout = window.setTimeout(() => {
+            target.classList.remove(classes.error)
+            $rightAnswer.classList.remove(classes.success)
+            dispatch(losingOn())
+            window.clearTimeout(timeout)
+            setRepeatedClick(true)
+            dispatch(timerHideAction())
+          }, milliseconds)
+
+          if (fiftyState) {
+            dispatch(fiftyDeleteClick())
+          }
+          if (hallHelp) {
+            dispatch(hallHelpDeleteClick())
+          }
+          if (callFriend) {
+            dispatch(callFriendDeleteClick())
+          }
         }
-        if (hallHelp) {
-          dispatch(hallHelpDeleteClick())
-        }
-        if (callFriend) {
-          dispatch(callFriendDeleteClick())
-        }
-      }
+        window.clearTimeout(timeout)
+      }, milliseconds2)
     }
   }
 

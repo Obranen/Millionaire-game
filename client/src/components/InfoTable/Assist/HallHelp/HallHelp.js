@@ -1,6 +1,6 @@
 import React from 'react'
 import {People} from "@material-ui/icons"
-import {Box} from "@material-ui/core"
+import {Box, Tooltip} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {hallHelpClick, hallHelpDisableOtherClick,} from "../../../../store/actions/hallHelp"
 import hallHelpStyles from './hallHelpStyles'
@@ -31,7 +31,9 @@ const HallHelp = () => {
 
   return (
     <Box onClick={hallHelpHandler}>
-      <People className={classes.icon}/>
+      <Tooltip title="Помощь зала" placement="right">
+        <People className={classes.icon}/>
+      </Tooltip>
     </Box>
   )
 }

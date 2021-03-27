@@ -1,6 +1,6 @@
 import React from 'react'
 import {Phone} from "@material-ui/icons"
-import {Box} from "@material-ui/core"
+import {Box, Tooltip} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {callFriendClick, callFriendDisableOtherClick} from "../../../../store/actions/callFriend"
 import callFriendStyles from './callFriendStyles'
@@ -31,7 +31,9 @@ const CallFriend = () => {
 
   return (
     <Box onClick={callFriendHandler}>
-      <Phone className={classes.icon}/>
+      <Tooltip title="Звонок другу" placement="right">
+        <Phone className={classes.icon}/>
+      </Tooltip>
     </Box>
   )
 }

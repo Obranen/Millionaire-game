@@ -156,7 +156,7 @@ const QuizForm = () => {
           required
           fullWidth
           id="rightAnswerId"
-          label="Правильный ответ - 'id'"
+          label="Правильный ответ - 'id(1-4)'"
           name="rightAnswerId"
           onChange={changeHandler}
           inputRef={rightAnswerIdRef}

@@ -82,6 +82,7 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             onClick={signInHandler('error')}
+            size={"large"}
           >
             Войти
           </Button>

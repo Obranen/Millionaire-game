@@ -6,7 +6,7 @@ import {losingOn} from "../../../../store/actions/quiz"
 import WinnerGame from "./WinnerGame/WinnerGame"
 import LostGame from "./LostGame/LostGame"
 import {Bar} from "react-chartjs-2"
-import WrapperMessage from "../../../../ui/WrapperMessage/WrapperMessage";
+import WrapperMessage from "../../../../ui/WrapperMessage/WrapperMessage"
 
 const InfoDisplay = () => {
   const dispatch = useDispatch()
@@ -126,6 +126,7 @@ const InfoDisplay = () => {
   useEffect(() => {
     if (seconds === 0) {
       dispatch(losingOn())
+      dispatch(timerHideAction())
     }
   }, [seconds, dispatch])
 

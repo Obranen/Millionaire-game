@@ -20,6 +20,19 @@ const darkTheme = createMuiTheme({
   error: {
     backgroundColor: 'red',
     color: 'write',
+  },
+  warning: {
+    backgroundColor: 'orange',
+    color: 'write',
+  },
+  overrides: {
+    MuiTooltip: {
+      tooltip: {
+        fontSize: "2em",
+        color: "yellow",
+        backgroundColor: "red"
+      }
+    }
   }
 })
 

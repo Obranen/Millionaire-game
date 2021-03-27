@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Box, Typography} from "@material-ui/core"
+import {Box, Tooltip, Typography} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {fiftyClick, fiftyDisableOtherClick} from "../../../../store/actions/fifty"
 import fiftyStyles from './fiftyStyles'
@@ -62,9 +62,11 @@ const Fifty = () => {
   }
 
   return (
-    <Box onClick={fiftyHandler} className={classes.icon}>
-      <Typography variant={'inherit'}>50:50</Typography>
-    </Box>
+    <Tooltip title="Убрать два неправильных ответа" placement="right">
+      <Box onClick={fiftyHandler} className={classes.icon}>
+        <Typography variant={'inherit'}>50:50</Typography>
+      </Box>
+    </Tooltip>
   )
 }
 

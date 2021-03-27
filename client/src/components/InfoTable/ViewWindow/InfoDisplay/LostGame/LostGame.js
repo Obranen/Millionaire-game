@@ -24,7 +24,7 @@ const LostGame = () => {
                   <WrapperMessage
                     close={false}
                   >
-                    Ваше время вышло!
+                    <p>Ваше время вышло!</p>
                     <RestartGame/>
                   </WrapperMessage>
                   :

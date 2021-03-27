@@ -10,7 +10,7 @@ import TableBody from "@material-ui/core/TableBody"
 import {useDispatch, useSelector} from "react-redux"
 import {quizAddCurrentId, quizUpdateTableOff} from "../../../store/actions/quiz"
 import {deleteQuizQuestion, getAllQuizzes} from "../../../store/actionsAsync/quiz"
-import quizTableStyles from "./quizTableStyles";
+import quizTableStyles from "./quizTableStyles"
 
 const QuizTable = () => {
   const dispatch = useDispatch()
@@ -69,8 +69,8 @@ const QuizTable = () => {
                 <TableRow key={quiz._id}>
                   <TableCell align="center" className={'quiz-question'}>{quiz.question}</TableCell>
                   <TableCell align="center" className={'quiz-rightAnswerId'}>{quiz.rightAnswerId}</TableCell>
-                  {quiz.answers.map((answer, index) => (
-                    <TableCell align="center" className={'quiz-answer'} key={index}>
+                  {quiz.answers.map((answer) => (
+                    <TableCell align="center" className={'quiz-answer'} key={answer._id}>
                       {answer.text}
                     </TableCell>
                     ))}

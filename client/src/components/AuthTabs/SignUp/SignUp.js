@@ -94,6 +94,7 @@ export default function SignUp() {
           variant="contained"
           color="primary"
           onClick={signUpHandler('error')}
+          size={"large"}
         >
           Зарегистрироваться
         </Button>
