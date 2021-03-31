@@ -11,6 +11,11 @@ const AnswerItem = props => {
 
   const classes = answerItemStyles()
 
+  function firstUppercase(str) {
+    if (!str) return str
+    return str[0].toUpperCase() + str.slice(1)
+  }
+
   useEffect(() => {
     if (rightAnswerId === props.answer.id) {
       dispatch(addRightAnswerLetter(props.answer.letter))
@@ -26,7 +31,7 @@ const AnswerItem = props => {
         elevation={3}
       >
         <Typography variant="inherit">{props.answer.letter}: </Typography>
-        <Typography variant="inherit" className={"quiz__text"}>{props.answer.text}</Typography>
+        <Typography variant="inherit" className={"quiz__text"}>{firstUppercase(props.answer.text)}</Typography>
       </Paper>
     </Grid>
   )

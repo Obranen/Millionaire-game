@@ -4,14 +4,27 @@ const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
+      light: '#718792',
       main: '#455a64',
+      dark: '#1c313a',
+      contrastText: '#ffffff',
+    },
+    secondary: {
+      light: '#ffffff',
+      main: '#eeeeee',
+      dark: '#bcbcbc',
+      contrastText: '#000000',
+    },
+    text: {
+      primary: '#ffffff',
+      secondary: '#dfdfdf',
+      disabled: '#97a2a8',
+      hint: '#97a2a8',
     },
     background: {
-      default: '#13191c'
+      default: '#10232a',
+      paper: '#7f939e',
     },
-  },
-  secondary: {
-    contrastText: '#ffffff',
   },
   success: {
     backgroundColor: 'green',
@@ -28,12 +41,12 @@ const darkTheme = createMuiTheme({
   overrides: {
     MuiTooltip: {
       tooltip: {
-        fontSize: "2em",
-        color: "yellow",
-        backgroundColor: "red"
+        fontSize: "16px",
+        color: '#000000',
+        backgroundColor: '#ffffff',
       }
     }
-  }
+  },
 })
 
 export default darkTheme

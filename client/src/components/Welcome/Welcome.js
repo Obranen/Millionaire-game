@@ -24,6 +24,7 @@ import notiStack from './welcomeImage/notistack.png'
 import react from './welcomeImage/react.png'
 import redux from './welcomeImage/redux.png'
 import welcomeStyles from './welcomeStyles'
+import DescriptionIcon from '@material-ui/icons/Description'
 
 const Welcome = () => {
   const dispatch = useDispatch()
@@ -74,7 +75,7 @@ const Welcome = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <Typography variant="h6">
                 Frontend:
               </Typography>
@@ -130,7 +131,7 @@ const Welcome = () => {
               </List>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <Typography variant="h6">
                 Backend:
               </Typography>
@@ -158,6 +159,62 @@ const Welcome = () => {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText primary="MongoDB" secondary="База данных"/>
+                </ListItem>
+              </List>
+            </Grid>
+
+            <Grid item xs={4}>
+              <Typography variant="h6">
+                Кратко о проделанной работе:
+              </Typography>
+              <List>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <DescriptionIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="Вход в личный кабинет с валидацией на клиенте и сервере"/>
+                </ListItem>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <DescriptionIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="Авторизация при обновлении страницы"/>
+                </ListItem>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <DescriptionIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="Страница создания, редактирования и удаления вопросов для игры" />
+                </ListItem>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <DescriptionIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="Вывод таблицы победителей" />
+                </ListItem>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <DescriptionIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="Две темы: светлая и темная" />
+                </ListItem>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar className={classes.avatar}>
+                      <DescriptionIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="Ну и сама игра - три режима подсказок, вопросы с ответами, таймер, текущий выйгрыш и сохранение результата" />
                 </ListItem>
               </List>
             </Grid>

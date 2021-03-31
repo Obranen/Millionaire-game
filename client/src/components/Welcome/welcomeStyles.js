@@ -6,8 +6,8 @@ const welcomeStyles = makeStyles((theme) => ({
     marginBottom: '50px',
   },
   avatar: {
-    backgroundColor: theme.palette.secondary.dark
-  }
+    backgroundColor: theme.palette.secondary.dark,
+  },
 }))
 
 export default welcomeStyles
