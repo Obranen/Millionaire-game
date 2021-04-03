@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {makeStyles, withStyles} from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -7,19 +7,27 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import {Button, Typography} from "@material-ui/core"
+import {Box, Button, Typography} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {deleteWinnings} from "../../../store/actionsAsync/winner"
+import CircularProgress from "@material-ui/core/CircularProgress";
+import {preloadingOff, preloadingOn} from "../../../store/actions/quiz";
 
 const allWinnersTableStyles = makeStyles((theme) => ({
   header: {
     marginTop: '40px',
     marginBottom: '10px',
   },
+  preloading: {
+    display: "flex",
+    justifyContent: "center",
+    margin: '20px 0',
+  },
 }))
 
 const MyWinsTable = () => {
   const dispatch = useDispatch()
+  const preloading = useSelector(state => state.quizReducer.preloading)
   const personalWin = useSelector(state => state.winnerReducer.personalWin)
 
   const classes = allWinnersTableStyles()
@@ -35,7 +43,7 @@ const MyWinsTable = () => {
       fontSize: '16px',
     },
     body: {
-      color: theme.palette.secondary.contrastText,
+      color: theme.palette.secondary.contrastText
     }
   }))(TableCell)
 
@@ -47,6 +55,14 @@ const MyWinsTable = () => {
       },
     },
   }))(TableRow)
+
+  useEffect(() => {
+    if (personalWin.length === 0) {
+      dispatch(preloadingOn())
+    } else {
+      dispatch(preloadingOff())
+    }
+  }, [personalWin, preloading, dispatch])
 
   const generateDate = date => {
     let newDate = new Date(date)
@@ -69,37 +85,43 @@ const MyWinsTable = () => {
   return (
     <>
       <Typography className={classes.header} variant="h4" align={"center"}>Твои личные достижения</Typography>
-      <TableContainer component={Paper}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="center">Дата</StyledTableCell>
-              <StyledTableCell align="center">Выйгрыш &#8372;</StyledTableCell>
-              <StyledTableCell align="center">Удалить сохранение</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {personalWin.map((row) => (
-              <StyledTableRow key={row._id}>
-                <StyledTableCell component="th" scope="row" align="center">
-                  {generateDate(row.date)}
-                </StyledTableCell>
-                <StyledTableCell align="center">{numberWithSpaces({number: row.money})}</StyledTableCell>
-                <StyledTableCell align="center">
-                  <Button
-                    data-id={row._id}
-                    onClick={deleteRowWinHandler}
-                    variant="outlined"
-                    color="primary"
-                  >
-                    Удалить
-                  </Button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {
+        preloading ?
+          <Box className={classes.preloading}>
+            <CircularProgress/>
+          </Box> :
+          <TableContainer component={Paper}>
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center">Дата</StyledTableCell>
+                  <StyledTableCell align="center">Выйгрыш &#8372;</StyledTableCell>
+                  <StyledTableCell align="center">Удалить сохранение</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {personalWin.map((row) => (
+                  <StyledTableRow key={row._id}>
+                    <StyledTableCell component="th" scope="row" align="center">
+                      {generateDate(row.date)}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">{numberWithSpaces({number: row.money})}</StyledTableCell>
+                    <StyledTableCell align="center">
+                      <Button
+                        data-id={row._id}
+                        onClick={deleteRowWinHandler}
+                        variant="outlined"
+                        color="primary"
+                      >
+                        Удалить
+                      </Button>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+      }
     </>
   )
 }
