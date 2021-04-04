@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "server:start": "cross-env NODE_ENV=production \"cd server && npm run start\"",
-    "client:install": "npm install --prefix client",
-    "server:install": "npm install --prefix server",
+    "client:install": "cd client && npm install",
+    "server:install": "cd server && npm install",
     "client:build": "npm run build --prefix client",
     "dev": "cross-env NODE_ENV=development concurrently \"cd server && npm run server\" \"cd client && npm run start\""
   },
