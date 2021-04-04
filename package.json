@@ -7,7 +7,7 @@
     "server:start": "cross-env NODE_ENV=production \"cd server && npm run start\"",
     "client:install": "cd client && npm install",
     "server:install": "cd server && npm install",
-    "client:build": "npm run build --prefix client",
+    "client:build": "cd client && npm run build",
     "dev": "cross-env NODE_ENV=development concurrently \"cd server && npm run server\" \"cd client && npm run start\""
   },
   "repository": {
