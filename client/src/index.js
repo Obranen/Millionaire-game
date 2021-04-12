@@ -7,7 +7,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import {Provider} from 'react-redux'
 import reduxThunk from 'redux-thunk'
 import rootReducer from "./store/reducers/rootReducer"
-import {SnackbarProvider} from "notistack";
+import {SnackbarProvider} from "notistack"
 
 const loggerMiddleware = store => next => action => {
   return next(action)
