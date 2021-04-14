@@ -8,6 +8,7 @@ import {Provider} from 'react-redux'
 import reduxThunk from 'redux-thunk'
 import rootReducer from "./store/reducers/rootReducer"
 import {SnackbarProvider} from "notistack"
+import * as serviceWorker from './serviceWorker'
 
 const loggerMiddleware = store => next => action => {
   return next(action)
@@ -32,3 +33,5 @@ ReactDOM.render(
   app,
   document.getElementById('root')
 )
+
+serviceWorker.unregister()
