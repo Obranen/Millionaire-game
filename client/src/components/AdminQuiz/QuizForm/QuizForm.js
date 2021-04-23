@@ -15,13 +15,14 @@ const QuizForm = () => {
   const quizStateEdit = useSelector(state => state.quizReducer.quizStateEdit)
   const clickOnButtonEdit = useSelector(state => state.quizReducer.clickOnButtonEdit)
   const [form, setForm] = useState({question: '', rightAnswerId: ''})
+  const [focusAfterEdit, setFocusAfterEdit] = useState()
   const [formAnswers, setFormAnswers] = useState({answerA: '', answerB: '', answerC: '', answerD: ''})
-  const questionRef = useRef()
-  const rightAnswerIdRef = useRef()
-  const answerARef = useRef()
-  const answerBRef = useRef()
-  const answerCRef = useRef()
-  const answerDRef = useRef()
+  const questionRef = useRef(null)
+  const rightAnswerIdRef = useRef(null)
+  const answerARef = useRef(null)
+  const answerBRef = useRef(null)
+  const answerCRef = useRef(null)
+  const answerDRef = useRef(null)
 
   const classes = quizFormStyles()
 
@@ -103,11 +104,13 @@ const QuizForm = () => {
     clearForm()
     clearInput()
     clearInputRef()
+    setFocusAfterEdit(false)
     dispatch(quizClickOnButtonEditOff())
   }
 
   const cancelQuizHandler = () => {
     clearInputRef()
+    setFocusAfterEdit(false)
     dispatch(quizClickOnButtonEditOff())
   }
 
@@ -129,8 +132,9 @@ const QuizForm = () => {
       })
 
       quizStateEditOffCallback()
+      setFocusAfterEdit(true)
     }
-  }, [quizStateEdit, quizStateEditOffCallback, quiz, quizCurrentID])
+  }, [quizStateEdit, quizStateEditOffCallback, quiz, quizCurrentID, setFocusAfterEdit])
 
   return (
     <>
@@ -149,6 +153,7 @@ const QuizForm = () => {
           autoFocus
           onChange={changeHandler}
           inputRef={questionRef}
+          focused={focusAfterEdit}
         />
         <TextField
           variant="outlined"
@@ -160,6 +165,7 @@ const QuizForm = () => {
           name="rightAnswerId"
           onChange={changeHandler}
           inputRef={rightAnswerIdRef}
+          focused={focusAfterEdit}
         />
         <Typography className={classes.header} variant="h5">
           Варианты ответов:
@@ -178,6 +184,7 @@ const QuizForm = () => {
           }}
           onChange={changeHandler}
           inputRef={answerARef}
+          focused={focusAfterEdit}
         />
         <TextField
           variant="outlined"
@@ -193,6 +200,7 @@ const QuizForm = () => {
           }}
           onChange={changeHandler}
           inputRef={answerBRef}
+          focused={focusAfterEdit}
         />
         <TextField
           variant="outlined"
@@ -208,6 +216,7 @@ const QuizForm = () => {
           }}
           onChange={changeHandler}
           inputRef={answerCRef}
+          focused={focusAfterEdit}
         />
         <TextField
           variant="outlined"
@@ -223,6 +232,7 @@ const QuizForm = () => {
           }}
           onChange={changeHandler}
           inputRef={answerDRef}
+          focused={focusAfterEdit}
         />
         {clickOnButtonEdit ?
           <Box className={classes.buttons}>

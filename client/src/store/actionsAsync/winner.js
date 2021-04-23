@@ -1,5 +1,5 @@
 import axios from "axios";
-import {winnerPersonalWin, winnerTopWin} from "../actions/winner";
+import {downloadedDataOff, winnerPersonalWin, winnerTopWin} from "../actions/winner";
 
 export const getDataWinner = () => {
   return async (dispatch) => {
@@ -10,6 +10,7 @@ export const getDataWinner = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       })
+      dispatch(downloadedDataOff())
       const user = response.data.user
       dispatch(winnerTopWin(user))
       const dataLosing = response.data.losing

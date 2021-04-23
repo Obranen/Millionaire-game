@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {makeStyles, withStyles} from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -8,9 +8,8 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import {Box, Typography} from "@material-ui/core"
-import {useDispatch, useSelector} from "react-redux"
-import {preloadingOff, preloadingOn} from "../../../store/actions/quiz"
-import CircularProgress from '@material-ui/core/CircularProgress'
+import {useSelector} from "react-redux"
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 const allWinnersTableStyles = makeStyles((theme) => ({
   header: {
@@ -22,12 +21,15 @@ const allWinnersTableStyles = makeStyles((theme) => ({
     justifyContent: "center",
     margin: '20px 0',
   },
+  emptyTable: {
+    fontSize: 16,
+  }
 }))
 
 const AllWinnersTable = () => {
-  const dispatch = useDispatch()
-  const preloading = useSelector(state => state.quizReducer.preloading)
   const topWin = useSelector(state => state.winnerReducer.topWin)
+  const downloadedData = useSelector(state => state.winnerReducer.downloadedData)
+  const [load, setLoad] = useState(true)
 
   const classes = allWinnersTableStyles()
 
@@ -52,21 +54,24 @@ const AllWinnersTable = () => {
   }))(TableRow)
 
   useEffect(() => {
-    if (topWin.length === 0) {
-      dispatch(preloadingOn())
-    } else {
-      dispatch(preloadingOff())
+    if (!(downloadedData)) {
+      setLoad(false)
     }
-  }, [topWin, preloading, dispatch])
+  }, [downloadedData, setLoad])
 
   return (
     <>
       <Typography className={classes.header} variant="h4" align={"center"}>Топ побед всех игроков</Typography>
       {
-        preloading ?
+        load ?
           <Box className={classes.preloading}>
             <CircularProgress />
           </Box> :
+          topWin.length === 0 ?
+            <Typography className={classes.emptyTable} variant="inherit">
+              На данный момент нет победителей
+            </Typography>
+            :
           <TableContainer component={Paper}>
             <Table aria-label="customized table">
               <TableHead>

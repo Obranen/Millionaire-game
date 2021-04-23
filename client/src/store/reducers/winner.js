@@ -1,8 +1,9 @@
-import {WINNER_PERSONAL_WIN, WINNER_TOP_WIN} from "../actions/actionTypes";
+import {DOWNLOADED_DATA_OFF, WINNER_PERSONAL_WIN, WINNER_TOP_WIN} from "../actions/actionTypes";
 
 const initialState = {
   topWin: [],
   personalWin: [],
+  downloadedData: true,
 }
 
 export default function winnerReducer(state = initialState, action) {
@@ -14,6 +15,10 @@ export default function winnerReducer(state = initialState, action) {
     case WINNER_PERSONAL_WIN: return  {
       ...state,
       personalWin: action.losing
+    }
+    case DOWNLOADED_DATA_OFF: return  {
+      ...state,
+      downloadedData: false
     }
     default: return state
   }

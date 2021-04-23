@@ -3,7 +3,7 @@
 <ul>
 <h3 style="text-align: center">Для запуска перейдите в папку millionaire-game</h3>
 <li>
-npm run install -- установить зависимости в корневой папке
+npm install -- установить зависимости в корневой папке
 </li>
 <li>
 npm run client:install -- установить зависимости на клиенте

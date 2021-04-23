@@ -11,7 +11,7 @@ import {
   QUIZ_STATE_EDIT_OFF,
   QUIZ_CLICK_ON_BUTTON_EDIT_OFF,
   QUIZ_UPDATE_TABLE_OFF,
-  QUIZ_ADD_RANDOM_QUIZ, PRELOADING_ON, PRELOADING_OFF,
+  QUIZ_ADD_RANDOM_QUIZ,
 } from "../actions/actionTypes"
 
 const initialState = {
@@ -25,7 +25,6 @@ const initialState = {
   quizStateEdit: false,
   clickOnButtonEdit: false,
   updateTableQuiz: false,
-  preloading: false,
 }
 
 export default function quizReducer(state = initialState, action) {
@@ -84,14 +83,6 @@ export default function quizReducer(state = initialState, action) {
     case LOSING_OFF: return  {
       ...state,
       losing: false
-    }
-    case PRELOADING_ON: return  {
-      ...state,
-      preloading: true
-    }
-    case PRELOADING_OFF: return  {
-      ...state,
-      preloading: false
     }
     default: return state
   }

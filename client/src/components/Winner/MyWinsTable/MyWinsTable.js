@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {makeStyles, withStyles} from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -10,8 +10,7 @@ import Paper from '@material-ui/core/Paper'
 import {Box, Button, Typography} from "@material-ui/core"
 import {useDispatch, useSelector} from "react-redux"
 import {deleteWinnings} from "../../../store/actionsAsync/winner"
-import CircularProgress from "@material-ui/core/CircularProgress";
-import {preloadingOff, preloadingOn} from "../../../store/actions/quiz";
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 const allWinnersTableStyles = makeStyles((theme) => ({
   header: {
@@ -23,12 +22,16 @@ const allWinnersTableStyles = makeStyles((theme) => ({
     justifyContent: "center",
     margin: '20px 0',
   },
+  emptyTable: {
+    fontSize: 16,
+  }
 }))
 
 const MyWinsTable = () => {
   const dispatch = useDispatch()
-  const preloading = useSelector(state => state.quizReducer.preloading)
   const personalWin = useSelector(state => state.winnerReducer.personalWin)
+  const downloadedData = useSelector(state => state.winnerReducer.downloadedData)
+  const [load, setLoad] = useState(true)
 
   const classes = allWinnersTableStyles()
 
@@ -56,17 +59,9 @@ const MyWinsTable = () => {
     },
   }))(TableRow)
 
-  useEffect(() => {
-    if (personalWin.length === 0) {
-      dispatch(preloadingOn())
-    } else {
-      dispatch(preloadingOff())
-    }
-  }, [personalWin, preloading, dispatch])
-
   const generateDate = date => {
     let newDate = new Date(date)
-    return  newDate.toLocaleDateString("en-GB", {
+    return newDate.toLocaleDateString("en-GB", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -82,14 +77,25 @@ const MyWinsTable = () => {
     event.target.parentNode.parentNode.parentNode.classList.add('hide-table-row')
   }
 
+  useEffect(() => {
+    if (!(downloadedData)) {
+      setLoad(false)
+    }
+  }, [downloadedData, setLoad])
+
   return (
     <>
       <Typography className={classes.header} variant="h4" align={"center"}>Твои личные достижения</Typography>
       {
-        preloading ?
+        load ?
           <Box className={classes.preloading}>
             <CircularProgress/>
           </Box> :
+          personalWin.length === 0 ?
+            <Typography className={classes.emptyTable} variant="inherit">
+              На данный момент у вас нет личных сохранений побед
+            </Typography>
+            :
           <TableContainer component={Paper}>
             <Table aria-label="customized table">
               <TableHead>

@@ -10,7 +10,7 @@ import {
   QUIZ_STATE_EDIT_OFF,
   QUIZ_GET_ALL_QUIZ,
   QUIZ_CLICK_ON_BUTTON_EDIT_OFF,
-  QUIZ_UPDATE_TABLE_OFF, QUIZ_ADD_RANDOM_QUIZ, PRELOADING_OFF, PRELOADING_ON
+  QUIZ_UPDATE_TABLE_OFF, QUIZ_ADD_RANDOM_QUIZ,
 } from "./actionTypes"
 
 export const quizClickOnButtonEditOff = () => {
@@ -80,15 +80,5 @@ export const losingOn = () => {
 export const losingOff = () => {
   return {
     type: LOSING_OFF
-  }
-}
-export const preloadingOn = () => {
-  return {
-    type: PRELOADING_ON
-  }
-}
-export const preloadingOff = () => {
-  return {
-    type: PRELOADING_OFF
   }
 }
