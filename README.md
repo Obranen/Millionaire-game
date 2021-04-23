@@ -1,5 +1,5 @@
 <h3 style="text-align: center">Приложение можно просмотреть по ссылке указанной ниже</h3>
-<h1 style="text-align: center">http://millionaire-game.xyz</h1>
+<h1 style="text-align: center">http://millionaire-games.ru</h1>
 <ul>
 <h3 style="text-align: center">Для запуска перейдите в папку millionaire-game</h3>
 <li>
