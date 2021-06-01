@@ -2,22 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import {BrowserRouter} from 'react-router-dom'
-import {applyMiddleware, createStore} from 'redux'
-import {composeWithDevTools} from 'redux-devtools-extension'
 import {Provider} from 'react-redux'
-import reduxThunk from 'redux-thunk'
-import rootReducer from "./store/reducers/rootReducer"
 import {SnackbarProvider} from "notistack"
 import * as serviceWorker from './serviceWorker'
-
-const loggerMiddleware = store => next => action => {
-  return next(action)
-}
-
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(
-  loggerMiddleware,
-  reduxThunk
-)))
+import {store} from './store/store'
 
 const app = (
   <Provider store={store}>
